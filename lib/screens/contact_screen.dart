@@ -5,6 +5,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../theme/app_colors.dart';
 import '../widgets/enquiry_modal.dart';
+import '../widgets/app_footer.dart';
+
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -211,6 +213,8 @@ class _ContactScreenState extends State<ContactScreen> {
               ]),
             ),
           ),
+        
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );

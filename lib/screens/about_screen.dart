@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/app_colors.dart';
 import '../widgets/glass_card.dart';
+import '../widgets/app_footer.dart';
+
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -22,6 +24,8 @@ class AboutScreen extends StatelessWidget {
           SliverToBoxAdapter(child: _buildAffiliations(context)),
           SliverToBoxAdapter(child: _buildTimeline(context)),
           const SliverToBoxAdapter(child: SizedBox(height: 100)),
+        
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );

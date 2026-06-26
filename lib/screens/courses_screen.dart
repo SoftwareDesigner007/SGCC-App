@@ -5,6 +5,8 @@ import '../theme/app_colors.dart';
 import '../models/course_model.dart';
 import '../widgets/course_card.dart';
 import '../widgets/custom_filter_chip.dart';
+import '../widgets/app_footer.dart';
+
 
 class CoursesScreen extends StatefulWidget {
   const CoursesScreen({super.key});
@@ -137,6 +139,8 @@ class _CoursesScreenState extends State<CoursesScreen> {
               ),
             ),
           ),
+        
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );

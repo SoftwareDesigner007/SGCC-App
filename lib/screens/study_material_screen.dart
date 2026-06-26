@@ -5,6 +5,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../theme/app_colors.dart';
 import '../models/resource_model.dart';
 import '../widgets/custom_filter_chip.dart';
+import '../widgets/app_footer.dart';
+
 
 class StudyMaterialScreen extends StatefulWidget {
   const StudyMaterialScreen({super.key});
@@ -129,6 +131,8 @@ class _StudyMaterialScreenState extends State<StudyMaterialScreen> {
               ),
             ),
           ),
+        
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );

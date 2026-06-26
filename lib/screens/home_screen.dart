@@ -15,6 +15,8 @@ import '../widgets/category_modal.dart';
 import '../widgets/custom_filter_chip.dart';
 import '../widgets/custom_section_header.dart';
 import '../widgets/typewriter_text.dart';
+import '../widgets/app_footer.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -94,6 +96,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           SliverToBoxAdapter(child: RepaintBoundary(child: _buildStudyMaterialCTA())),
           SliverToBoxAdapter(child: RepaintBoundary(child: _buildGaneshGitaShloka())),
           const SliverToBoxAdapter(child: SizedBox(height: 100)),
+        
+          const SliverToBoxAdapter(child: AppFooter()),
         ],
       ),
     );
