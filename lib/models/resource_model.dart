@@ -1,0 +1,193 @@
+import 'package:flutter/material.dart';
+
+class ResourceModel {
+  final String id;
+  final String title;
+  final String subtitle;
+  final String category;
+  final String type; // 'pdf', 'video', 'notes', 'practice'
+  final IconData icon;
+  final Color accentColor;
+  final String? downloadUrl;
+  final bool isFree;
+
+  const ResourceModel({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+    required this.category,
+    required this.type,
+    required this.icon,
+    required this.accentColor,
+    this.downloadUrl,
+    this.isFree = true,
+  });
+}
+
+final List<ResourceModel> studyResources = [
+  const ResourceModel(
+    id: 'mscit_res',
+    title: "MKCL'S MSCIT (Maharashtra State Certificate in Information Technology) Notes.",
+    subtitle: 'Comprehensive study material and practice sets for MS-CIT exams.',
+    category: 'MS-CIT',
+    type: 'notes',
+    icon: Icons.verified_outlined,
+    accentColor: Color(0xFFFFE04A),
+    downloadUrl: 'https://drive.google.com/file/d/1bG0Tx7l3jhifUbZkrokqcD-HPujKky_d/view?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'hardware_res',
+    title: 'Diploma in IT Hardware & Networking Notes.',
+    subtitle: 'Step-by-step PC assembly and network configuration handbook.',
+    category: 'Hardware & Networking',
+    type: 'pdf',
+    icon: Icons.settings_input_component_outlined,
+    accentColor: Color(0xFF00FFCC),
+    downloadUrl: 'https://drive.google.com/file/d/1g4qPujMLJYCaivJd4utRQPK0V7-x65cd/view?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'web_res',
+    title: 'Web Designing & Web Development Notes.',
+    subtitle: 'Essential HTML, CSS, and JS reference for modern web building.',
+    category: 'Web Development',
+    type: 'pdf',
+    icon: Icons.code_outlined,
+    accentColor: Color(0xFFFF2D78),
+    downloadUrl: 'https://drive.google.com/drive/folders/1_uRthCip-elMQBUgCQJgA5Jhk1xu8wLs?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'graphic_res',
+    title: 'Graphic Designing Notes.',
+    subtitle: 'Key concepts of typography, layout, and Adobe tool shortcuts.',
+    category: 'Design & Creative',
+    type: 'notes',
+    icon: Icons.palette_outlined,
+    accentColor: Color(0xFFFF2D78),
+    downloadUrl: 'https://docs.google.com/document/d/1ff3JTCxJwXevO0arJqFLyErQ2vjlM3RS/edit?usp=drive_link&ouid=104709522639758048807&rtpof=true&sd=true',
+  ),
+  const ResourceModel(
+    id: 'uiux_res',
+    title: 'UI UX Designing Notes.',
+    subtitle: 'Prototyping guide and modern design system components.',
+    category: 'UI/UX Design',
+    type: 'notes',
+    icon: Icons.draw_outlined,
+    accentColor: Color(0xFF00FFCC),
+    downloadUrl: 'https://drive.google.com/drive/folders/1d-W8SbTrEWnk4-dmSw60MQSsu3jojSjc?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'basics_res',
+    title: 'Basics of Computer Notes.',
+    subtitle: 'Simple guide for first-time computer users and OS operations.',
+    category: 'Fundamentals',
+    type: 'pdf',
+    icon: Icons.computer_outlined,
+    accentColor: Color(0xFFFFE04A),
+    downloadUrl: 'https://drive.google.com/file/d/1J_m8Gns3FdGLe3-dA61Wv6IM4Qy-WViY/view?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'fundamentals_res',
+    title: 'Computer Fundamental Notes.',
+    subtitle: 'In-depth notes on computer architecture and system software.',
+    category: 'Fundamentals',
+    type: 'notes',
+    icon: Icons.desktop_windows_outlined,
+    accentColor: Color(0xFFFF2D78),
+    downloadUrl: 'https://docs.google.com/document/d/1c_trXfmXLVw2aGjTJiaauzV-F7lmmItE/edit?usp=drive_link&ouid=104709522639758048807&rtpof=true&sd=true',
+  ),
+  const ResourceModel(
+    id: 'office_res',
+    title: 'Office Automation Notes.',
+    subtitle: 'Master Excel formulas, Word formatting, and PPT presentations.',
+    category: 'Office Automation',
+    type: 'pdf',
+    icon: Icons.table_chart_outlined,
+    accentColor: Color(0xFF00FFCC),
+    downloadUrl: 'https://drive.google.com/file/d/1FBLHTnDJpQA0kBLxoT1JU6rrq5zbLc8t/view?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'tally_res',
+    title: 'Financial Accounting with Tally ERP Notes.',
+    subtitle: 'Complete guide to professional accounting and tax filing.',
+    category: 'Tally',
+    type: 'pdf',
+    icon: Icons.account_balance_outlined,
+    accentColor: Color(0xFFFFE04A),
+    downloadUrl: 'https://docs.google.com/document/d/16WWas1RHF3zKoLFgnYmr97iFSJUL0GrW/edit?usp=drive_link&ouid=104709522639758048807&rtpof=true&sd=true',
+  ),
+  const ResourceModel(
+    id: 'typing_marathi_res',
+    title: 'Marathi Typing with Advanced Methods and AI Notes.',
+    subtitle: 'AI-enhanced methods for fast and accurate Marathi typing.',
+    category: 'Typing',
+    type: 'practice',
+    icon: Icons.keyboard_outlined,
+    accentColor: Color(0xFFFF2D78),
+    downloadUrl: 'coming_soon',
+  ),
+  const ResourceModel(
+    id: 'typing_eng_hin_res',
+    title: 'English and Hindi Typing with Advanced Methods and AI Notes.',
+    subtitle: 'Advanced speed-building exercises for English and Hindi.',
+    category: 'Typing',
+    type: 'practice',
+    icon: Icons.keyboard_outlined,
+    accentColor: Color(0xFF00FFCC),
+    downloadUrl: 'coming_soon',
+  ),
+  const ResourceModel(
+    id: 'prog_basic_res',
+    title: 'Basics of C, C++, C#, Java, Python, Kotlin Programming Notes.',
+    subtitle: 'Syntax guides and logic-building exercises for beginners.',
+    category: 'Programming',
+    type: 'notes',
+    icon: Icons.terminal_outlined,
+    accentColor: Color(0xFFFFE04A),
+    downloadUrl: 'https://drive.google.com/drive/folders/1qqSi6_Bfe_hf7tuEcCSUhsDDDQCvjOF7?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'prog_adv_res',
+    title: 'Advance in C, C++, C#, Java, Python, Kotlin Programming Notes.',
+    subtitle: 'Complex data structures and enterprise coding patterns.',
+    category: 'Programming',
+    type: 'notes',
+    icon: Icons.integration_instructions_outlined,
+    accentColor: Color(0xFFFF2D78),
+    downloadUrl: 'https://drive.google.com/drive/folders/1qqSi6_Bfe_hf7tuEcCSUhsDDDQCvjOF7?usp=drive_link',
+  ),
+  const ResourceModel(
+    id: 'ai_res',
+    title: 'Prompt Engineering and Generative AI Notes.',
+    subtitle: 'Mastering LLMs and generative AI tools for productivity.',
+    category: 'AI & Future Skills',
+    type: 'pdf',
+    icon: Icons.psychology_outlined,
+    accentColor: Color(0xFF00FFCC),
+    downloadUrl: 'https://drive.google.com/drive/folders/1a_4CQ6_NzbLemGwS1R6DOf_jIWA6gpqk?usp=sharing',
+  ),
+  const ResourceModel(
+    id: 'marketing_res',
+    title: 'The Ultimate guide to Digital Marketing with AI Notes.',
+    subtitle: 'AI-powered SEO, SMM, and content marketing strategy.',
+    category: 'AI & Future Skills',
+    type: 'notes',
+    icon: Icons.trending_up_outlined,
+    accentColor: Color(0xFFFFE04A),
+    downloadUrl: 'https://docs.google.com/document/d/1pzRvjxGp1mZmH4w3dMBcJVjCjBRAgrIJ/edit?usp=drive_link&ouid=104709522639758048807&rtpof=true&sd=true',
+  ),
+];
+
+const List<String> resourceCategories = [
+  'All Resources',
+  'MS-CIT',
+  'Programming',
+  'Web Development',
+  'Tally',
+  'Office Automation',
+  'UI/UX Design',
+  'Design & Creative',
+  'Hardware & Networking',
+  'AI & Future Skills',
+  'Typing',
+  'Fundamentals',
+];

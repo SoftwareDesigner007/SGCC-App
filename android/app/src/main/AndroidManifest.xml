@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sgcc.sgcc_app">
+ 
+    <!--
+        Permissions
+        These are the permissions requested by the application from the Android system.
+    -->
+
+    <!-- Allows the app to create network sockets and use custom network protocols. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Allows the app to view the status of network connections. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- Allows the app to view information about Wi-Fi networking. -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!-- Allows the app to initiate a phone call without going through the Dialer user interface. -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <!-- Required to be able to access the camera device. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- Allows an application to read from external storage. (Deprecated in API 33+) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- Allows an application to write to external storage. (Deprecated in API 33+) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!-- Allows an application to read image files from shared storage. (Android 13+) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <!-- Allows an application to read video files from shared storage. (Android 13+) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <!-- Allows an application to read audio files from shared storage. (Android 13+) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!--
+        Allows an application a broad access to external storage in scoped storage.
+        Note: This is a sensitive permission and requires Google Play approval for general use.
+    -->
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <!-- Allows an app to post notifications. (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!--
+        Hardware features
+        Specifies the hardware and software features that the application uses.
+    -->
+
+    <!-- Declares the use of the camera. required="false" means the app can be installed on devices without a camera. -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"
+        tools:ignore="UnsupportedAttribute" />
+
+    <!-- Declares the use of telephony. required="false" means the app can be installed on devices without cellular capabilities (like tablets). -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false"
+        tools:ignore="UnsupportedAttribute" />
+
+    <!--
+        Application Configuration
+    -->
+    <application
+        android:label="SGCC"
+        android:name="${applicationName}"
+        android:icon="@mipmap/launcher_icon"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:enableOnBackInvokedCallback="true"
+        tools:ignore="MissingApplicationIcon,ManifestResource,HardcodedText,GoogleAppIndexingWarning,UnresolvedClass,UnsupportedAttribute">
+
+        <!--
+            Main Activity
+            This is the entry point for the application.
+        -->
+        <activity
+            android:name="com.sgcc.sgcc_app.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+
+            <!--
+                Specifies the theme to apply to the activity after the splash screen is finished.
+            -->
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
+
+            <!--
+                Intent Filter to identify this activity as the main entry point of the app.
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!--
+            Flutter Embedding version.
+        -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2"/>
+    </application>
+
+    <!--
+        Package Queries
+        Required for the url_launcher package to detect if specific apps or schemes can be handled on Android 11+.
+    -->
+    <queries>
+        <!-- For opening web pages in a browser. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
+        <!-- For making phone calls. -->
+        <intent>
+            <action android:name="android.intent.action.DIAL"/>
+            <data android:scheme="tel"/>
+        </intent>
+        <!-- For sending emails. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="mailto"/>
+        </intent>
+        <!-- For opening WhatsApp directly. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="whatsapp"/>
+        </intent>
+    </queries>
+
+</manifest>
