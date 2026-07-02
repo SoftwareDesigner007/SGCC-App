@@ -19,7 +19,13 @@ void showCategoryModal(BuildContext context, CategoryModel category) {
   ).then((shouldNavigate) {
     // This runs AFTER the bottom sheet is fully closed
     if (shouldNavigate == true) {
-      shellState?.setIndex(1);
+      if (shellState != null) {
+        shellState.setIndex(1);
+      } else {
+        // Fallback: If for some reason shellState is null, we can try to push the home route with index 1
+        // though setIndex is preferred.
+        Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false, arguments: 1);
+      }
     }
   });
 }
@@ -234,82 +240,88 @@ class _CategoryModalState extends State<CategoryModal>
 
   Widget _buildSparkleButton(
       CategoryModel category, ColorScheme colorScheme) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(14),
-      child: Stack(
-        children: [
-          // The button
-          GestureDetector(
-            onTap: _isSparkleActive ? null : _handleViewAllCourses,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(
-                color: category.accentColor,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    color: category.accentColor.withOpacity(
-                        _isSparkleActive ? 0.6 : 0.35),
-                    blurRadius: _isSparkleActive ? 30 : 20,
-                    spreadRadius: _isSparkleActive ? 2 : 0,
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'VIEW ALL COURSES',
-                    style: GoogleFonts.sora(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      letterSpacing: 1.0,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  AnimatedRotation(
-                    turns: _isSparkleActive ? 0.5 : 0,
-                    duration: const Duration(milliseconds: 400),
-                    child: const Icon(Icons.arrow_forward,
-                        color: Colors.white, size: 18),
-                  ),
-                ],
-              ),
-            ),
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: category.accentColor.withOpacity(
+                _isSparkleActive ? 0.6 : 0.35),
+            blurRadius: _isSparkleActive ? 30 : 20,
+            spreadRadius: _isSparkleActive ? 2 : 0,
           ),
-          // Sparkle/shimmer overlay
-          if (_isSparkleActive)
-            Positioned.fill(
-              child: IgnorePointer(
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(14),
+        child: Stack(
+          children: [
+            // The button using Material and InkWell for guaranteed hits
+            Material(
+              color: category.accentColor,
+              child: InkWell(
+                onTap: _isSparkleActive ? null : _handleViewAllCourses,
+                splashColor: Colors.white24,
+                highlightColor: Colors.white10,
                 child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'VIEW ALL COURSES',
+                        style: GoogleFonts.sora(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          letterSpacing: 1.0,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      AnimatedRotation(
+                        turns: _isSparkleActive ? 0.5 : 0,
+                        duration: const Duration(milliseconds: 400),
+                        child: const Icon(Icons.arrow_forward,
+                            color: Colors.white, size: 18),
+                      ),
+                    ],
                   ),
-                )
-                    .animate(controller: _sparkleController)
-                    .shimmer(
-                      duration: 600.ms,
-                      color: Colors.white.withOpacity(0.5),
-                      angle: 45 * pi / 180,
-                    )
-                    .then()
-                    .fadeOut(duration: 200.ms),
-              ),
-            ),
-          // Sparkle particles
-          if (_isSparkleActive)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: _SparkleParticles(
-                  color: Colors.white,
-                  controller: _sparkleController,
                 ),
               ),
             ),
-        ],
+            // Sparkle/shimmer overlay
+            if (_isSparkleActive)
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  )
+                      .animate(controller: _sparkleController)
+                      .shimmer(
+                        duration: 600.ms,
+                        color: Colors.white.withOpacity(0.5),
+                        angle: 45 * pi / 180,
+                      )
+                      .then()
+                      .fadeOut(duration: 200.ms),
+                ),
+              ),
+            // Sparkle particles
+            if (_isSparkleActive)
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: _SparkleParticles(
+                    color: Colors.white,
+                    controller: _sparkleController,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -352,60 +364,96 @@ class _SparklePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (progress <= 0) return;
 
-    final paint = Paint()..color = color;
-    const sparkleCount = 20;
+    const sparkleCount = 25; // Increased count
+    final center = Offset(size.width / 2, size.height / 2);
 
     for (int i = 0; i < sparkleCount; i++) {
-      final baseX = _random.nextDouble() * size.width;
-      final baseY = _random.nextDouble() * size.height;
+      // Use index for varied positions
+      final seed = 42 + i;
+      final random = Random(seed);
+      
+      final baseX = random.nextDouble() * size.width;
+      final baseY = random.nextDouble() * size.height;
 
       // Each sparkle has its own timing offset
-      final delay = _random.nextDouble() * 0.4;
+      final delay = random.nextDouble() * 0.3;
       final localProgress = ((progress - delay) / (1.0 - delay)).clamp(0.0, 1.0);
 
       if (localProgress <= 0) continue;
 
+      // Color variation between white and gold
+      final isGold = random.nextBool();
+      final sparkleColor = isGold 
+          ? const Color(0xFFFFD700) // Gold
+          : Colors.white;
+
       // Sparkle bursts outward and fades
       final scale = sin(localProgress * pi);
-      final sparkleSize = (2 + _random.nextDouble() * 3) * scale;
+      final sparkleSize = (3 + random.nextDouble() * 4) * scale; // Slightly larger
 
-      // Move outward from center
-      final dx = (baseX - size.width / 2) * 0.3 * localProgress;
-      final dy = (baseY - size.height / 2) * 0.5 * localProgress;
+      // Move outward from center for a "burst" effect
+      final dirX = (baseX - center.dx) / size.width;
+      final dirY = (baseY - center.dy) / size.height;
+      
+      final dx = dirX * size.width * 0.4 * localProgress;
+      final dy = dirY * size.height * 0.6 * localProgress;
 
       final x = baseX + dx;
-      final y = baseY + dy - (20 * localProgress); // Float upward
+      final y = baseY + dy - (30 * localProgress); // Float upward more
 
-      final opacity = (1.0 - localProgress) * 0.9;
-      paint.color = color.withOpacity(opacity);
+      final paint = Paint()
+        ..color = sparkleColor.withOpacity((1.0 - localProgress) * 0.9);
 
-      // Draw a 4-pointed star shape
-      _drawStar(canvas, Offset(x, y), sparkleSize, paint);
+      // Draw a more complex star shape
+      _drawSparkleStar(canvas, Offset(x, y), sparkleSize, paint);
     }
   }
 
-  void _drawStar(Canvas canvas, Offset center, double size, Paint paint) {
+  void _drawSparkleStar(Canvas canvas, Offset center, double size, Paint paint) {
     if (size < 0.5) return;
 
-    // Horizontal line
+    // Main cross
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromCenter(center: center, width: size * 2, height: size * 0.4),
-        Radius.circular(size * 0.2),
+        Rect.fromCenter(center: center, width: size * 2.5, height: size * 0.3),
+        Radius.circular(size * 0.1),
       ),
       paint,
     );
-    // Vertical line
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromCenter(center: center, width: size * 0.4, height: size * 2),
-        Radius.circular(size * 0.2),
+        Rect.fromCenter(center: center, width: size * 0.3, height: size * 2.5),
+        Radius.circular(size * 0.1),
       ),
       paint,
     );
+
+    // Diagonal small cross for extra sparkle
+    final diagonalPaint = Paint()..color = paint.color.withOpacity(paint.color.opacity * 0.7);
+    final diagSize = size * 1.2;
+    
+    canvas.save();
+    canvas.translate(center.dx, center.dy);
+    canvas.rotate(pi / 4);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromCenter(center: Offset.zero, width: diagSize, height: diagSize * 0.2),
+        Radius.circular(diagSize * 0.1),
+      ),
+      diagonalPaint,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromCenter(center: Offset.zero, width: diagSize * 0.2, height: diagSize),
+        Radius.circular(diagSize * 0.1),
+      ),
+      diagonalPaint,
+    );
+    canvas.restore();
+
     // Bright center dot
-    final dotPaint = Paint()..color = paint.color.withOpacity(1.0);
-    canvas.drawCircle(center, size * 0.3, dotPaint);
+    final dotPaint = Paint()..color = Colors.white.withOpacity(paint.color.opacity);
+    canvas.drawCircle(center, size * 0.4, dotPaint);
   }
 
   @override

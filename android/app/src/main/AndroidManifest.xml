@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    package="com.sgcc.sgcc_app"
     android:versionCode="1"
-    android:versionName="1.0"
-    package="com.sgcc.sgcc_app">
+    android:versionName="1.0">
 
     <!--
         Declare the minimum SDK for the IDE's static analysis.
@@ -11,8 +11,8 @@
     -->
     <uses-sdk
         android:minSdkVersion="21"
-        tools:overrideLibrary="com.sgcc.sgcc_app"
-        tools:ignore="GradleOverrides" />
+        tools:ignore="GradleOverrides"
+        tools:overrideLibrary="com.sgcc.sgcc_app" />
 
     <!--
         Permissions
@@ -20,25 +20,25 @@
     -->
 
     <!-- Allows the app to create network sockets and use custom network protocols. -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Allows the app to view the status of network connections. -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Allows the app to view information about Wi-Fi networking. -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!-- Allows the app to initiate a phone call without going through the Dialer user interface. -->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <!-- Required to be able to access the camera device. -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Allows an application to read from external storage. (Deprecated in API 33+) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- Allows an application to write to external storage. (Deprecated in API 33+) -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Allows an application to read image files from shared storage. (Android 13+) -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -58,7 +58,7 @@
         tools:ignore="ScopedStorage" />
 
     <!-- Allows an app to post notifications. (Android 13+) -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!--
         Hardware features
@@ -79,12 +79,12 @@
         Application Configuration
     -->
     <application
-        android:label="SGCC"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon"
         android:allowBackup="false"
-        android:fullBackupContent="false"
         android:enableOnBackInvokedCallback="true"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/launcher_icon"
+        android:label="SGCC"
         tools:ignore="MissingApplicationIcon,ManifestResource,HardcodedText,GoogleAppIndexingWarning,UnresolvedClass"
         tools:targetApi="tiramisu">
 
@@ -94,12 +94,12 @@
         -->
         <activity
             android:name="com.sgcc.sgcc_app.MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
 
             <!--
@@ -107,14 +107,14 @@
             -->
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
-                android:resource="@style/NormalTheme"/>
+                android:resource="@style/NormalTheme" />
 
             <!--
                 Intent Filter to identify this activity as the main entry point of the app.
             -->
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -123,7 +123,7 @@
         -->
         <meta-data
             android:name="flutterEmbedding"
-            android:value="2"/>
+            android:value="2" />
     </application>
 
     <!--
@@ -133,23 +133,23 @@
     <queries>
         <!-- For opening web pages in a browser. -->
         <intent>
-            <action android:name="android.intent.action.VIEW"/>
-            <data android:scheme="https"/>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
         </intent>
         <!-- For making phone calls. -->
         <intent>
-            <action android:name="android.intent.action.DIAL"/>
-            <data android:scheme="tel"/>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
         </intent>
         <!-- For sending emails. -->
         <intent>
-            <action android:name="android.intent.action.VIEW"/>
-            <data android:scheme="mailto"/>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="mailto" />
         </intent>
         <!-- For opening WhatsApp directly. -->
         <intent>
-            <action android:name="android.intent.action.VIEW"/>
-            <data android:scheme="whatsapp"/>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="whatsapp" />
         </intent>
     </queries>
 
