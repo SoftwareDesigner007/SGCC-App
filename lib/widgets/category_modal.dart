@@ -6,32 +6,30 @@ import '../main.dart';
 import '../models/category_model.dart';
 
 void showCategoryModal(BuildContext context, CategoryModel category) {
-  // Capture the MainShellState from the CALLER's context, where it IS an ancestor.
+  // Capture the MainShellState from the CALLER's context BEFORE opening the sheet.
   // The bottom sheet overlay has its own widget tree, so findAncestorStateOfType
   // won't work from inside the modal.
   final shellState = context.findAncestorStateOfType<MainShellState>();
 
-  showModalBottomSheet(
+  showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) => CategoryModal(
-      category: category,
-      onViewAllCourses: () {
-        shellState?.setIndex(1);
-      },
-    ),
-  );
+    builder: (_) => CategoryModal(category: category),
+  ).then((shouldNavigate) {
+    // This runs AFTER the bottom sheet is fully closed
+    if (shouldNavigate == true) {
+      shellState?.setIndex(1);
+    }
+  });
 }
 
 class CategoryModal extends StatefulWidget {
   final CategoryModel category;
-  final VoidCallback? onViewAllCourses;
 
   const CategoryModal({
     super.key,
     required this.category,
-    this.onViewAllCourses,
   });
 
   @override
@@ -62,11 +60,11 @@ class _CategoryModalState extends State<CategoryModal>
     setState(() => _isSparkleActive = true);
     _sparkleController.forward(from: 0.0);
 
-    // Wait for the sparkle animation to play, then navigate
+    // Wait for the sparkle animation to play, then close the sheet
+    // and return `true` to tell the caller to navigate to courses.
     Future.delayed(const Duration(milliseconds: 700), () {
       if (!mounted) return;
-      Navigator.pop(context);
-      widget.onViewAllCourses?.call();
+      Navigator.pop(context, true); // Return true = navigate to courses
     });
   }
 
@@ -146,7 +144,7 @@ class _CategoryModalState extends State<CategoryModal>
                     ),
                   ),
                   IconButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.pop(context, false),
                     icon: Icon(Icons.close,
                         color: colorScheme.onSurfaceVariant),
                   ),

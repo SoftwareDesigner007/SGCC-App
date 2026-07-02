@@ -176,6 +176,9 @@ class MainShellState extends State<MainShell> {
             icon: Icon(Icons.menu_book_outlined),
             selectedIcon: Icon(Icons.menu_book),
             label: 'Resources',
+          ),
+        ],
+      ),
     );
   }
 
