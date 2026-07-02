@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="1"
+    android:versionName="1.0"
     package="com.sgcc.sgcc_app">
- 
+
+    <!--
+        Declare the minimum SDK for the IDE's static analysis.
+        The actual values are set dynamically by Flutter's Gradle plugin at build time.
+    -->
+    <uses-sdk
+        android:minSdkVersion="21"
+        tools:overrideLibrary="com.sgcc.sgcc_app"
+        tools:ignore="GradleOverrides" />
+
     <!--
         Permissions
         These are the permissions requested by the application from the Android system.
@@ -39,7 +50,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <!--
-        Allows an application a broad access to external storage in scoped storage.
+        Allows an application broad access to external storage in scoped storage.
         Note: This is a sensitive permission and requires Google Play approval for general use.
     -->
     <uses-permission
@@ -57,14 +68,12 @@
     <!-- Declares the use of the camera. required="false" means the app can be installed on devices without a camera. -->
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false"
-        tools:ignore="UnsupportedAttribute" />
+        android:required="false" />
 
     <!-- Declares the use of telephony. required="false" means the app can be installed on devices without cellular capabilities (like tablets). -->
     <uses-feature
         android:name="android.hardware.telephony"
-        android:required="false"
-        tools:ignore="UnsupportedAttribute" />
+        android:required="false" />
 
     <!--
         Application Configuration
@@ -76,7 +85,8 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:enableOnBackInvokedCallback="true"
-        tools:ignore="MissingApplicationIcon,ManifestResource,HardcodedText,GoogleAppIndexingWarning,UnresolvedClass,UnsupportedAttribute">
+        tools:ignore="MissingApplicationIcon,ManifestResource,HardcodedText,GoogleAppIndexingWarning,UnresolvedClass"
+        tools:targetApi="tiramisu">
 
         <!--
             Main Activity
